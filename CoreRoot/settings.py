@@ -46,9 +46,19 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework_simplejwt",
     "core",
     "core.user",
+    "core.auth",
+    "core.post",
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -92,7 +102,10 @@ DATABASES = {
         "PASSWORD": os.getenv("DATABASE_PASSWORD", "default_password"),
         "HOST": os.getenv("DATABASE_HOST", "localhost"),
         "PORT": os.getenv("DATABASE_PORT", "5432"),
-    }
+    },
+    "OPTIONS": {
+        "client_encoding": "UTF8",
+    },
 }
 
 
